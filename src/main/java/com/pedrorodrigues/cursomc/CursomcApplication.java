@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.pedrorodrigues.cursomc.domain.Categoria;
 import com.pedrorodrigues.cursomc.domain.Cidade;
+import com.pedrorodrigues.cursomc.domain.Cliente;
+import com.pedrorodrigues.cursomc.domain.Endereco;
 import com.pedrorodrigues.cursomc.domain.Estado;
 import com.pedrorodrigues.cursomc.domain.Produto;
+import com.pedrorodrigues.cursomc.domain.enums.TipoCliente;
 import com.pedrorodrigues.cursomc.repositories.CategoriaRepository;
 import com.pedrorodrigues.cursomc.repositories.CidadeRepository;
+import com.pedrorodrigues.cursomc.repositories.ClienteRepository;
+import com.pedrorodrigues.cursomc.repositories.EnderecoRepository;
 import com.pedrorodrigues.cursomc.repositories.EstadoRepository;
 import com.pedrorodrigues.cursomc.repositories.ProdutoRepository;
 
@@ -28,6 +33,10 @@ public class CursomcApplication<S> implements CommandLineRunner{
 	@Autowired
 	private CidadeRepository cidadeRepository;
 	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -65,7 +74,20 @@ public class CursomcApplication<S> implements CommandLineRunner{
 		
 	    estadoRepository.saveAll(Arrays.asList(est1, est2));
 	    cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
-		
+	    
+
+	    Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, "Maria Silva");
+	
+	    cli1.getTelefones().addAll(Arrays.asList("27363323","93838393"));
+	    
+	    Endereco e1 = new Endereco(null, "Rua Flores", "300", "apto 300", "Jardin", "38220834", cli1, c1);
+	    Endereco e2 = new Endereco(null, "Avenida Matos", "105", "sala 800", "Centro", "38777012", cli1, c2);
+	    
+	    cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+	    
+	    clienteRepository.saveAll(Arrays.asList(cli1));
+	    enderecoRepository.saveAll(Arrays.asList(e1, e2));
+	    
 	}
 
 }
