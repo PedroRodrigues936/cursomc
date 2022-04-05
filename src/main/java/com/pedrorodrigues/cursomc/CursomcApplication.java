@@ -30,6 +30,7 @@ import com.pedrorodrigues.cursomc.repositories.ItemPedidoRepository;
 import com.pedrorodrigues.cursomc.repositories.PagamentoRepository;
 import com.pedrorodrigues.cursomc.repositories.PedidoRepository;
 import com.pedrorodrigues.cursomc.repositories.ProdutoRepository;
+
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
 	@Autowired
@@ -54,6 +55,7 @@ public class CursomcApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
 	}
+	
 	@Override
 	public void run(String... args) throws Exception {
 		
@@ -84,7 +86,7 @@ public class CursomcApplication implements CommandLineRunner {
 		est2.getCidades().addAll(Arrays.asList(c2, c3));
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
-		
+
 		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, null);
 		
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
@@ -113,18 +115,17 @@ public class CursomcApplication implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 
-		
-		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00, null);
-		ItemPedido ip2 = new ItemPedido(ped1, p2, 0.00, 2, 80.00, null);
-		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00, null);
-		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+
 		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
 		ped2.getItens().addAll(Arrays.asList(ip3));
-		
+
 		p1.getItens().addAll(Arrays.asList(ip1));
 		p2.getItens().addAll(Arrays.asList(ip3));
 		p3.getItens().addAll(Arrays.asList(ip2));
-		
-		itemPedidoRepository.saveAll( Arrays.asList(ip1, ip2, ip3));
+
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));		
 	}
 }
